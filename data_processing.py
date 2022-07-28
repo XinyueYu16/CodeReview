@@ -1,4 +1,4 @@
-# 读取excel数据
+# Read excel cells, including cell value, color, etc.
 import openpyxl
 import pandas as pd
 
@@ -12,7 +12,7 @@ whole = []
 for i in range(5, 18+1):
     test = []
     for j in range(1, 21):
-        #这里要注意一下，行列都是从1开始计数的
+        #rows and cols start with 1 in Excel
         ce = cur.cell(row=i, column=j)
         fill = ce.fill
         if fill.start_color.rgb == "FFFFFF00":
@@ -25,7 +25,8 @@ df = pd.DataFrame(whole)
 df.columns = df.loc[0, :]
 df = df.loc[1:, :].copy().reset_index(drop=True)
 
-# 数据缺失值查看
+# Check the missing data, plot their relationship
+# Helpful when investigating different types of data missing 
 import missingno as msnum
 
 msnum.bar(city_data)
